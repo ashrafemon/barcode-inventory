@@ -1,0 +1,49 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app_network
+    depends_on:
+      - database
+    restart: always
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app_network
+    restart: unless-stopped
+
+  database:
+    image: mongo:6.0
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=ashrafemon143
+      - MONGO_INITDB_ROOT_PASSWORD=bKA1M4MRpJoQTMP3
+      - MONGO_INITDB_DATABASE=inventory
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all", "--keyFile", "/etc/mongo-keyfile"]
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo-keyfile:/etc/mongo-keyfile:ro
+    expose:
+      - 27017
+    networks:
+      - app_network
+
+volumes:
+  mongo_data:
+
+networks: 
+  app_network: 
+    driver: bridge

@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@import "@mantine/core/styles.css";
+@import "@mantine/charts/styles.css";
+@import "@caldwell619/react-kanban/dist/styles.css";
+
+@layer utilities {
+    .react-kanban-column {
+        @apply !bg-white shadow-sm border border-gray-400 !rounded-md !p-3 !min-w-[200px];
+    }
+}
