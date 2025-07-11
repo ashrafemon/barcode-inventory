@@ -1,135 +1,134 @@
-# Turborepo starter
+# Inventory Management Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+A full-stack inventory management system built with:
 
-## Using this example
+- **API:** [NestJS](https://nestjs.com/) (`apps/api`)
+- **Frontend:** [Next.js](https://nextjs.org/) (`apps/web`)
+- **Monorepo:** Managed with [Turborepo](https://turbo.build/)
+- **Containerization:** [Docker](https://www.docker.com/) & [docker-compose](https://docs.docker.com/compose/)
 
-Run the following command:
+---
 
-```sh
-npx create-turbo@latest
-```
+## Table of Contents
 
-## What's inside?
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Local Development (without Docker)](#local-development-without-docker)
+- [Running with Docker](#running-with-docker)
+- [Scripts & Utilities](#scripts--utilities)
+- [Deployment](#deployment)
+- [Resources](#resources)
 
-This Turborepo includes the following packages/apps:
+---
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## Project Structure
 
 ```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+apps/
+  api/      # NestJS backend API
+  web/      # Next.js frontend
+docker-compose.yml    # Multi-service Docker setup
+mongo-keyfile         # MongoDB replica set keyfile
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+---
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+## Prerequisites
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+- **Node.js** >= 18 ([Download](https://nodejs.org/))
+- **npm** >= 10
+- **MongoDB** (local or Docker)
+- **Docker** & **docker-compose** (for containerized setup)
 
-### Develop
+---
 
-To develop all apps and packages, run the following command:
+## Local Development (without Docker)
 
-```
-cd my-turborepo
+### 1. Install dependencies
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+```bash
+npm install
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+### 2. Start MongoDB
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+- **Option 1:** Install and run MongoDB locally.
+- **Option 2:** Use Docker for MongoDB only:
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+```bash
+docker run --name inventory-mongo -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=ashrafemon143 -e MONGO_INITDB_ROOT_PASSWORD=bKA1M4MRpJoQTMP3 -d mongo:6.0
 ```
 
-### Remote Caching
+### 3. Start the API (NestJS)
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+```bash
+cd apps/api
+npm run dev
+# API runs on http://localhost:5000
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### 4. Start the Frontend (Next.js)
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+```bash
+cd apps/web
+npm run dev
+# Frontend runs on http://localhost:3000
 ```
 
-## Useful Links
+---
 
-Learn more about the power of Turborepo:
+## Running with Docker
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+### 1. Build and start all services
+
+```bash
+docker-compose up --build
+```
+
+- **API:** http://localhost:5000
+- **Frontend:** http://localhost:3000
+- **MongoDB:** Internal, exposed on 27017
+
+### 2. Stopping services
+
+```bash
+docker-compose down
+```
+
+---
+
+## Scripts & Utilities
+
+From the root directory, you can use Turborepo scripts:
+
+| Script                | Description               |
+| --------------------- | ------------------------- |
+| `npm run dev`         | Run all apps in dev mode  |
+| `npm run build`       | Build all apps/packages   |
+| `npm run lint`        | Lint all apps/packages    |
+| `npm run format`      | Format code with Prettier |
+| `npm run check-types` | Type-check all packages   |
+
+Or run per-app scripts in `apps/api` and `apps/web`.
+
+---
+
+## Deployment
+
+- **NestJS API:** See [apps/api/README.md](apps/api/README.md) for deployment instructions.
+- **Next.js Frontend:** See [apps/web/README.md](apps/web/README.md) for deployment instructions (e.g., Vercel).
+
+---
+
+## Resources
+
+- [NestJS Documentation](https://docs.nestjs.com)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Turborepo Docs](https://turbo.build/docs)
+- [Docker Compose Docs](https://docs.docker.com/compose/)
+
+---
+
+## License
+
+MIT
