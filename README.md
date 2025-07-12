@@ -1,7 +1,3 @@
-Here is a **professional and complete documentation** you can submit as your final assessment for the Barcode-Driven Inventory System. It is structured to clearly showcase your choices, architecture, features, and instructions for both local and live setups.
-
----
-
 # 📦 Barcode-Driven Inventory Management System
 
 A full-stack responsive inventory management system with **barcode scanning**, **drag-and-drop Kanban board**, and **category management**.
