@@ -12,7 +12,9 @@ import {
     TextInput,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import Link from "next/link";
 import { Controller, useForm } from "react-hook-form";
+import { SITE_URL } from "../constants/urls";
 import { LoginDto } from "../dto/auth";
 import {
     ApiErrorResponseInterface,
@@ -20,17 +22,12 @@ import {
     ApiValidateErrorDataType,
     ResponseType,
 } from "../dto/base";
+import useAuth from "../hooks/useAuth";
 import { useCreateLoginMutation } from "../stores/actions/auth";
 import { alertMessage, validateError } from "../utils/helper";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
-import { SITE_URL } from "../constants/urls";
-import Link from "next/link";
-import useAuth from "../hooks/useAuth";
 
 const LoginForm = () => {
     const auth = useAuth();
-    const router = useRouter();
     const [opened, { open, close }] = useDisclosure();
     const [create, result] = useCreateLoginMutation();
 

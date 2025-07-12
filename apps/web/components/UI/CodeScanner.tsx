@@ -1,8 +1,8 @@
+import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import {
     ActionIcon,
     Box,
     Button,
-    Group,
     LoadingOverlay,
     Stack,
     Text,
@@ -12,7 +12,6 @@ import { useDisclosure } from "@mantine/hooks";
 import React, { useRef } from "react";
 import useScanner, { ScanType } from "../../hooks/useScanner";
 import { alertMessage } from "../../utils/helper";
-import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 
 const CodeScanner = ({
     handler = () => {},

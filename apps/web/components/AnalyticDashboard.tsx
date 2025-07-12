@@ -1,10 +1,9 @@
 import { BarChart } from "@mantine/charts";
 import { Card, Grid, Stack, Text } from "@mantine/core";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
+import { ProductDto } from "../dto/products";
 import { useFetchAnalyticReportQuery } from "../stores/actions/reports";
 import LoadSkeleton from "./UI/LoadSkeleton";
-import { ProductDto } from "../dto/products";
-import { CategoryDto } from "../dto/categories";
 
 const AnalyticDashboard = () => {
     const { data, isFetching, isError, error } =

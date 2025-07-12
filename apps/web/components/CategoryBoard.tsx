@@ -37,7 +37,7 @@ const CategoryBoard = () => {
     ) => {
         await create({ barcode, store_type: "FETCH" })
             .unwrap()
-            .then((res) => {
+            .then(() => {
                 alertMessage({
                     title: "Product fetched successfully.",
                     icon: "success",
